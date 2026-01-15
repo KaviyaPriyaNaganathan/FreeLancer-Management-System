@@ -2,6 +2,7 @@ package com.freelancing.models;
 
 import java.time.LocalDateTime;
 
+import com.freelancing.enums.PaymentMethod;
 import com.freelancing.enums.PaymentStatus;
 
 import jakarta.persistence.Column;
@@ -43,9 +44,25 @@ public class Payment {
 	
 	@Column(nullable = false, unique = true)
 	private String transactionReference;
+	
+    @Column(nullable = false)
+    private String accountHolderName;
+
+    private String bankName;
+
+    private String accountNumber;
+
+    private String ifscCode;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PaymentMethod paymentMethod;
+
+    private String upi;
 
 	public Payment(Long privateId, Freelancer freelancer, Project project, double amount, LocalDateTime paymentDate,
-			PaymentStatus paymentStatus, String transactionReference) {
+			PaymentStatus paymentStatus, String transactionReference, String accountHolderName, String bankName,
+			String accountNumber, String ifscCode, PaymentMethod paymentMethod, String upi) {
 		super();
 		this.privateId = privateId;
 		this.freelancer = freelancer;
@@ -54,6 +71,7 @@ public class Payment {
 		this.paymentDate = LocalDateTime.now();
 		this.paymentStatus = PaymentStatus.PENDING;
 		this.transactionReference = transactionReference;
+		this.paymentMethod = paymentMethod;
 	}
 
 	public Payment() {
@@ -117,7 +135,55 @@ public class Payment {
 	public void setTransactionReference(String transactionReference) {
 		this.transactionReference = transactionReference;
 	}
-	
+
+	public String getAccountHolderName() {
+		return accountHolderName;
+	}
+
+	public void setAccountHolderName(String accountHolderName) {
+		this.accountHolderName = accountHolderName;
+	}
+
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public String getIfscCode() {
+		return ifscCode;
+	}
+
+	public void setIfscCode(String ifscCode) {
+		this.ifscCode = ifscCode;
+	}
+
+	public PaymentMethod getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	public String getUpi() {
+		return upi;
+	}
+
+	public void setUpi(String upi) {
+		this.upi = upi;
+	}
+
 	
 	
 }

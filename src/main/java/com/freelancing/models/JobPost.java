@@ -3,6 +3,7 @@ package com.freelancing.models;
 import java.math.BigDecimal;
 
 import com.freelancing.enums.JobStatus;
+import com.freelancing.enums.PostedBy;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +34,7 @@ public class JobPost {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
-	private JobPost postedBy;
+	private PostedBy postedBy;
 	
 	@Column(nullable=false)
 	private BigDecimal budget;
@@ -46,7 +47,7 @@ public class JobPost {
 	@JoinColumn(name="project_id", nullable = false)
 	private Project project;
 
-	public JobPost(Long jobId, String title, String description, String requiredSkills, JobPost postedBy,
+	public JobPost(Long jobId, String title, String description, String requiredSkills, PostedBy postedBy,
 			BigDecimal budget, JobStatus status, Project project) {
 		super();
 		this.jobId = jobId;
@@ -96,11 +97,11 @@ public class JobPost {
 		this.requiredSkills = requiredSkills;
 	}
 
-	public JobPost getPostedBy() {
+	public PostedBy getPostedBy() {
 		return postedBy;
 	}
 
-	public void setPostedBy(JobPost postedBy) {
+	public void setPostedBy(PostedBy postedBy) {
 		this.postedBy = postedBy;
 	}
 

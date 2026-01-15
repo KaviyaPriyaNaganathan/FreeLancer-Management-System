@@ -48,9 +48,13 @@ public class Project {
 	
 	@ManyToMany(mappedBy = "appliedProjects")
 	private List<Freelancer> assignedFreelancers;
+	
+	@Column(nullable = false)
+	private double budget;
+
 
 	public Project(Long projectId, String title, String description, LocalDateTime createdDate, LocalDate deadline,
-			ProjectStatus status) {
+			ProjectStatus status, double budget) {
 		super();
 		this.projectId = projectId;
 		this.title = title;
@@ -58,6 +62,15 @@ public class Project {
 		this.createdDate = LocalDateTime.now();
 		this.deadline = deadline;
 		this.status = ProjectStatus.NEW;
+		this.budget = budget;
+	}
+
+	public double getBudget() {
+		return budget;
+	}
+
+	public void setBudget(double budget) {
+		this.budget = budget;
 	}
 
 	public Project() {
