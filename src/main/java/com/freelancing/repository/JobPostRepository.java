@@ -1,5 +1,9 @@
 package com.freelancing.repository;
 
-public class JobPostRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.freelancing.models.JobPost;
+
+public interface JobPostRepository extends JpaRepository<JobPost,Long>{
 
 }
