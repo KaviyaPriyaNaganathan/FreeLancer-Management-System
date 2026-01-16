@@ -1,21 +1,9 @@
 package com.freelancing.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.freelancing.repository.ReviewRepository;
+public interface ReviewService {
 
-@Service
-public class ReviewService {
-
-	private final ReviewRepository reviewRepository;
-
-	@Autowired
-	public ReviewService(ReviewRepository reviewRepository) {
-		super();
-		this.reviewRepository = reviewRepository;
-	}
-	
 	
 
 }

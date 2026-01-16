@@ -6,4 +6,6 @@ import com.freelancing.models.Freelancer;
 
 public interface FreelancerRepository extends JpaRepository<Freelancer,Long>{
 
+	boolean existsByEmail(String email);
+
 }

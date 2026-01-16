@@ -1,21 +1,13 @@
 package com.freelancing.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.freelancing.repository.FreelancerRepository;
+import com.freelancing.models.Freelancer;
 
-@Service
-public class FreelancerService {
+public interface FreelancerService {
+
+	Freelancer registerFreelancer(Freelancer freelancer);
 	
-	private final FreelancerRepository freelancerRepository;
-
-	@Autowired
-	public FreelancerService(FreelancerRepository freelancerRepository) {
-		super();
-		this.freelancerRepository = freelancerRepository;
-	}
 	
-
 
 }

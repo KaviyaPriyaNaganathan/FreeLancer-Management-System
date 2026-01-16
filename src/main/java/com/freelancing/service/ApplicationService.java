@@ -5,15 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.freelancing.repository.ApplicationRepository;
 
-@Service
-public class ApplicationService {
 
-	private final ApplicationRepository applicationRepository;
+public interface ApplicationService {
 
-	@Autowired
-	public ApplicationService(ApplicationRepository applicationRepository) {
-		super();
-		this.applicationRepository = applicationRepository;
-	}
+	
 
 }

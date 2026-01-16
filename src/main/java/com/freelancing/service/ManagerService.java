@@ -1,21 +1,12 @@
 package com.freelancing.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.freelancing.repository.ManagerRepository;
+import java.util.List;
+
+import com.freelancing.models.Manager;
 
 
-@Service
-public class ManagerService {
+public interface ManagerService {
 
-	private final ManagerRepository managerRepository;
-
-	@Autowired
-	public ManagerService(ManagerRepository managerRepository) {
-		super();
-		this.managerRepository = managerRepository;
-	}
-	
-
+   
 }

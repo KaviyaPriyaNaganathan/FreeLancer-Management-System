@@ -1,20 +1,17 @@
 package com.freelancing.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import com.freelancing.repository.AdminRepository;
+import com.freelancing.models.Manager;
 
-@Service
-public class AdminService {
 
-	private final AdminRepository adminRepository;
-	
-	@Autowired
-	public AdminService(AdminRepository adminRepository) {
-		super();
-		this.adminRepository = adminRepository;
-	}
-	
-	
+public interface AdminService {
+
+	Manager addManager(Manager manager);
+
+	Manager deactivateManager(Long managerId);
+
+	List<Manager> getAllManagers();
 }
