@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.freelancing.models.Freelancer;
+import com.freelancing.dto.request.FreelancerSignupDTO;
+import com.freelancing.dto.response.FreelancerResponseDTO;
 import com.freelancing.service.FreelancerService;
 
 @RestController
@@ -24,7 +25,7 @@ public class AuthController {
 
 
 	@PostMapping("/freelancer/signup")
-	public ResponseEntity<Freelancer> registerFreelancer(@RequestBody Freelancer freelancer)
+	public ResponseEntity<FreelancerResponseDTO> registerFreelancer(@RequestBody FreelancerSignupDTO freelancer)
 	{
 		return ResponseEntity.ok(freelancerService.registerFreelancer(freelancer));
 	}

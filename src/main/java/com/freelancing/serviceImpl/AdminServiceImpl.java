@@ -36,17 +36,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 
-
-//
-//	@Override
-//	public Freelancer deactivateFreelancer(Long freelancerId) {
-//		Freelancer freelancer = freelancerRepository.findById(freelancerId)
-//				.orElseThrow(()->new RuntimeException("Freelancer id not exists "+freelancerId));
-//		freelancer.setStatus(FreelancerStatus.INACTIVE);
-//		return freelancerRepository.save(freelancer);
-//	}
-//
-//
 //
 //	@Override
 //	public List<Project> getAllProjects() {

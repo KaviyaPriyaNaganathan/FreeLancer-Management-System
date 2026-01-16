@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.freelancing.dto.request.ProjectRequestDTO;
+import com.freelancing.dto.request.FreelancerSignupDTO;
+import com.freelancing.dto.response.FreelancerResponseDTO;
+import com.freelancing.enums.FreelancerStatus;
+import com.freelancing.mappers.FreelancerMapper;
 import com.freelancing.models.Freelancer;
 import com.freelancing.repository.FreelancerRepository;
 import com.freelancing.service.FreelancerService;
@@ -22,30 +25,38 @@ public class FreelancerServiceImpl implements FreelancerService {
 	}
 
 	@Override
-	public Freelancer registerFreelancer(Freelancer freelancer) {
+	public FreelancerResponseDTO registerFreelancer(FreelancerSignupDTO dto) {
 		// TODO Auto-generated method stub
-		if (freelancerRepository.existsByEmail(freelancer.getEmail())) {
+		if (freelancerRepository.existsByEmail(dto.getEmail())) {
 			throw new RuntimeException("Email already exists.");
 		}
-		return freelancerRepository.save(freelancer);
+		Freelancer freelancer = FreelancerMapper.toEntity(dto);
+		Freelancer savedFreelancer = freelancerRepository.save(freelancer);
+		return FreelancerMapper.toResponse(savedFreelancer);
 
 	}
 
 	@Override
-	public List<Freelancer> getAllFreelancers() {
+	public List<FreelancerResponseDTO> getAllFreelancers() {
 		// TODO Auto-generated method stub
-		return null;
+		return freelancerRepository.findAll().stream()
+				.map(FreelancerMapper::toResponse).toList();
 	}
 
 	@Override
-	public Freelancer deactivateFreelancer(Long freelancerId) {
+	public FreelancerResponseDTO deactivateFreelancer(Long freelancerId) {
 		// TODO Auto-generated method stub
-		return null;
+		Freelancer freelancer = freelancerRepository.findById(freelancerId)
+				.orElseThrow(()->new RuntimeException("Freelancer id not exists "+freelancerId));
+		freelancer.setStatus(FreelancerStatus.INACTIVE);
+		Freelancer freelancerEntity = freelancerRepository.save(freelancer);
+		return FreelancerMapper.toResponse(freelancerEntity);
+
 	}
 
-	@Override
-	public Freelancer createProject(ProjectRequestDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Freelancer createProject(ProjectRequestDTO dto) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }

@@ -39,6 +39,7 @@ public class ProjectRequestDTO {
 	public void setManagerId(Long managerId) {
 		this.managerId = managerId;
 	}
+
 	
 	
 }

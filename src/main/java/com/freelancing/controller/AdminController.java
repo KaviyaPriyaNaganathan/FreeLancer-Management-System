@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.freelancing.dto.request.ManagerRequestDTO;
 import com.freelancing.dto.request.ProjectRequestDTO;
+import com.freelancing.dto.response.FreelancerResponseDTO;
 import com.freelancing.dto.response.ManagerResponseDTO;
 import com.freelancing.dto.response.ProjectResponseDTO;
-import com.freelancing.models.Freelancer;
-import com.freelancing.models.Manager;
-import com.freelancing.models.Project;
 import com.freelancing.service.AdminService;
 import com.freelancing.service.FreelancerService;
 import com.freelancing.service.ManagerService;
@@ -66,44 +64,41 @@ public class AdminController {
     	return managerService.getAllManagers();
     }
     
-//    
-//    
-//    
-//    @GetMapping("/freelancers")
-//    public List<Freelancer> getAllFreelancers()
-//    {
-//    	return freelancerService.getAllFreelancers();
-//    }
-//    
-//    @PutMapping("/freelancer/{freelancerId}/deactivate")
-//    public ResponseEntity<Freelancer> deactivateFreelancer(@PathVariable Long freelancerId)
-//    {
-//    	return ResponseEntity.ok(freelancerService.deactivateFreelancer(freelancerId));
-//    }
-//    
-//    
-//    
-//    @PostMapping("/project")
-//    public ResponseEntity<ProjectResponseDTO> createProject(@RequestBody ProjectRequestDTO dto)
-//    {
-//    	return ResponseEntity.ok(freelancerService.createProject(dto));
-//    }
-//    
-//    @PutMapping("/projects/{projectId}/assign-manager/{managerId}")
-//    public ResponseEntity<ProjectResponseDTO> assignManagerToProject
-//    					(@PathVariable Long projectId,
-//    							@PathVariable Long managerId)
-//    {
-//    	return ResponseEntity.ok(projectService.assignManagerToProject(projectId,managerId));
-//    }
-//    
-//    @GetMapping("/projects")
-//    public List<Project> getAllProjects()
-//    {
-//    	return projectService.getAllProjects();
-//    }
-//    
-//    
+    
+    
+    
+    @GetMapping("/freelancers")
+    public List<FreelancerResponseDTO> getAllFreelancers()
+    {
+    	return freelancerService.getAllFreelancers();
+    }
+    
+    @PutMapping("/freelancer/{freelancerId}/deactivate")
+    public ResponseEntity<FreelancerResponseDTO> deactivateFreelancer(@PathVariable Long freelancerId)
+    {
+    	return ResponseEntity.ok(freelancerService.deactivateFreelancer(freelancerId));
+    }
+    
+    
+    
+    
+    @PostMapping("/project")
+    public ResponseEntity<ProjectResponseDTO> createProject(@RequestBody ProjectRequestDTO dto) {
+        return ResponseEntity.ok(projectService.createProject(dto));
+    }
+
+    @PutMapping("/projects/{projectId}/assign-manager/{managerId}")
+    public ResponseEntity<ProjectResponseDTO> assignManagerToProject(
+            @PathVariable Long projectId,
+            @PathVariable Long managerId) {
+        return ResponseEntity.ok(projectService.assignManagerToProject(projectId, managerId));
+    }
+
+    @GetMapping("/projects")
+    public List<ProjectResponseDTO> getAllProjects() {
+        return projectService.getAllProjects();
+    }
+
     
     
 }

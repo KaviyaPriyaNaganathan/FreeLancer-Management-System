@@ -2,21 +2,17 @@ package com.freelancing.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
+import com.freelancing.dto.request.FreelancerSignupDTO;
 import com.freelancing.dto.request.ProjectRequestDTO;
+import com.freelancing.dto.response.FreelancerResponseDTO;
 import com.freelancing.models.Freelancer;
 
 public interface FreelancerService {
 
-	Freelancer registerFreelancer(Freelancer freelancer);
+	FreelancerResponseDTO registerFreelancer(FreelancerSignupDTO freelancer);
 
-	List<Freelancer> getAllFreelancers();
+	List<FreelancerResponseDTO> getAllFreelancers();
 
-	Freelancer deactivateFreelancer(Long freelancerId);
-
-	Freelancer createProject(ProjectRequestDTO dto);
-	
-	
+	FreelancerResponseDTO deactivateFreelancer(Long freelancerId);
 
 }
