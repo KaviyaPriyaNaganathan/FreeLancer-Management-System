@@ -1,8 +1,11 @@
 package com.freelancing.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.freelancing.dto.request.ProjectRequestDTO;
 import com.freelancing.models.Freelancer;
 import com.freelancing.repository.FreelancerRepository;
 import com.freelancing.service.FreelancerService;
@@ -26,5 +29,23 @@ public class FreelancerServiceImpl implements FreelancerService {
 		}
 		return freelancerRepository.save(freelancer);
 
+	}
+
+	@Override
+	public List<Freelancer> getAllFreelancers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Freelancer deactivateFreelancer(Long freelancerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Freelancer createProject(ProjectRequestDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

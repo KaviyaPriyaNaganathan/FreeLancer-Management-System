@@ -1,9 +1,11 @@
 package com.freelancing.service;
 
-import org.springframework.stereotype.Service;
+import com.freelancing.models.Project;
 
 
 public interface ProjectService {
+
+	Project assignManagerToProject(Long projectId, Long managerId);
 
 	
 	

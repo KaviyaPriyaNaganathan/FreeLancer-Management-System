@@ -12,37 +12,98 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.freelancing.dto.request.ManagerRequestDTO;
+import com.freelancing.dto.request.ProjectRequestDTO;
+import com.freelancing.dto.response.ManagerResponseDTO;
+import com.freelancing.dto.response.ProjectResponseDTO;
+import com.freelancing.models.Freelancer;
 import com.freelancing.models.Manager;
+import com.freelancing.models.Project;
 import com.freelancing.service.AdminService;
+import com.freelancing.service.FreelancerService;
+import com.freelancing.service.ManagerService;
+import com.freelancing.service.ProjectService;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 	
-	@Autowired
+	
     private AdminService adminService;
+	private ProjectService projectService;
+	private ManagerService managerService;
+	private FreelancerService freelancerService;
+	
+	
+	@Autowired
+    
+    public AdminController(AdminService adminService, ProjectService projectService, ManagerService managerService,
+			FreelancerService freelancerService) {
+		super();
+		this.adminService = adminService;
+		this.projectService = projectService;
+		this.managerService = managerService;
+		this.freelancerService = freelancerService;
+	}
 
 	
-    @PostMapping("/addManager")
-    public ResponseEntity<Manager> addManager(@RequestBody Manager manager) {
-        return ResponseEntity.ok(adminService.addManager(manager));
+	@PostMapping("/addManager")
+    public ResponseEntity<ManagerResponseDTO> addManager(@RequestBody ManagerRequestDTO dto) {
+        return ResponseEntity.ok(managerService.addManager(dto));
     }
     
-    
-    @PutMapping("/manager/{maOnagerId}/deactivate")
-    public ResponseEntity<Manager> deactivateManager(@PathVariable Long managerId)
+
+
+	@PutMapping("/manager/{managerId}/deactivate")
+    public ResponseEntity<ManagerResponseDTO> deactivateManager(@PathVariable Long managerId)
     {
-    	return ResponseEntity.ok(adminService.deactivateManager(managerId));
+    	return ResponseEntity.ok(managerService.deactivateManager(managerId));
     }
 
-    @GetMapping("/manager")
-    public List<Manager> getAllManagers()
+    @GetMapping("/managers")
+    public List<ManagerResponseDTO> getAllManagers()
     {
-    	return adminService.getAllManagers();
+    	return managerService.getAllManagers();
     }
     
-  
-    
+//    
+//    
+//    
+//    @GetMapping("/freelancers")
+//    public List<Freelancer> getAllFreelancers()
+//    {
+//    	return freelancerService.getAllFreelancers();
+//    }
+//    
+//    @PutMapping("/freelancer/{freelancerId}/deactivate")
+//    public ResponseEntity<Freelancer> deactivateFreelancer(@PathVariable Long freelancerId)
+//    {
+//    	return ResponseEntity.ok(freelancerService.deactivateFreelancer(freelancerId));
+//    }
+//    
+//    
+//    
+//    @PostMapping("/project")
+//    public ResponseEntity<ProjectResponseDTO> createProject(@RequestBody ProjectRequestDTO dto)
+//    {
+//    	return ResponseEntity.ok(freelancerService.createProject(dto));
+//    }
+//    
+//    @PutMapping("/projects/{projectId}/assign-manager/{managerId}")
+//    public ResponseEntity<ProjectResponseDTO> assignManagerToProject
+//    					(@PathVariable Long projectId,
+//    							@PathVariable Long managerId)
+//    {
+//    	return ResponseEntity.ok(projectService.assignManagerToProject(projectId,managerId));
+//    }
+//    
+//    @GetMapping("/projects")
+//    public List<Project> getAllProjects()
+//    {
+//    	return projectService.getAllProjects();
+//    }
+//    
+//    
     
     
 }
