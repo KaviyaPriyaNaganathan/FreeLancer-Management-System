@@ -54,9 +54,16 @@ public class FreelancerServiceImpl implements FreelancerService {
 
 	}
 
-//	@Override
-//	public Freelancer createProject(ProjectRequestDTO dto) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public FreelancerResponseDTO getFreenlancerById(Long freelancerId) {
+		// TODO Auto-generated method stub
+		Freelancer freelancer = freelancerRepository.findById(freelancerId)
+				.orElseThrow(()->new RuntimeException("Freelancer id not exists "+freelancerId));
+		return FreelancerMapper.toResponse(freelancer);
+	}
+
+	
+	
+
+
 }

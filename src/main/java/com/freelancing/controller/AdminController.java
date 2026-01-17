@@ -79,6 +79,18 @@ public class AdminController {
     	return ResponseEntity.ok(freelancerService.deactivateFreelancer(freelancerId));
     }
     
+    @GetMapping("/freelancer/{freelancerId}")
+    public FreelancerResponseDTO getFreenlancerById(@PathVariable Long freelancerId)
+    {
+    	return freelancerService.getFreenlancerById(freelancerId);
+    }
+    
+//    @GetMapping("/freelancer/{skills}")
+//    public FreelancerResponseDTO getFreelancerBySkills(@PathVariable String skills)
+//    {
+//    	return freelancerService.getFreelancerBySkills(skills);
+//    }
+//    
     
     
     
