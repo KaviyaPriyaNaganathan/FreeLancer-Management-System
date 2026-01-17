@@ -1,6 +1,10 @@
 package com.freelancing.enums;
 
 public enum JobStatus {
-	OPEN,
-	CLOSED
+	 	
+		OPEN,      
+	    IN_PROGRESS,
+	    COMPLETED,
+	    CANCELLED,
+	    CLOSED  
 }
