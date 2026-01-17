@@ -1,8 +1,11 @@
 package com.freelancing.service;
 
-import org.springframework.stereotype.Service;
+import com.freelancing.dto.request.JobRequestDTO;
+import com.freelancing.dto.response.JobResponseDTO;
 
 public interface JobPostService {
+
+	JobResponseDTO publishJob(JobRequestDTO dto);
 
 	
 	

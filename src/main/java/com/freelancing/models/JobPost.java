@@ -1,6 +1,7 @@
 package com.freelancing.models;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import com.freelancing.enums.JobStatus;
 import com.freelancing.enums.PostedBy;
@@ -46,9 +47,15 @@ public class JobPost {
 	@ManyToOne
 	@JoinColumn(name="project_id", nullable = false)
 	private Project project;
+	
+	@Column(nullable = false, updatable = false)
+	private LocalDateTime createdAt;
+
+	@Column(nullable = false)
+	private LocalDateTime updatedAt;
 
 	public JobPost(Long jobId, String title, String description, String requiredSkills, PostedBy postedBy,
-			BigDecimal budget, JobStatus status, Project project) {
+			BigDecimal budget, JobStatus status, Project project, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.jobId = jobId;
 		this.title = title;
@@ -58,16 +65,41 @@ public class JobPost {
 		this.budget = budget;
 		this.status = JobStatus.OPEN;
 		this.project = project;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
+
 
 	public JobPost() {
 		super();
 		this.status = JobStatus.OPEN;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 
 	public Long getJobId() {
 		return jobId;
 	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 
 	public void setJobId(Long jobId) {
 		this.jobId = jobId;
