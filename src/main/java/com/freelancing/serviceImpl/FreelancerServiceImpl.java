@@ -62,8 +62,16 @@ public class FreelancerServiceImpl implements FreelancerService {
 		return FreelancerMapper.toResponse(freelancer);
 	}
 
-	
-	
+	@Override
+	public List<FreelancerResponseDTO> getFreelancerBySkills(String skills) {
+		// TODO Auto-generated method stub
+		
+		List<Freelancer> freelancer = freelancerRepository.findBySkillsContainingIgnoreCase(skills);
+		return freelancer.stream()
+				.map(FreelancerMapper::toResponse)
+				.toList();
+	}
+
 
 
 }

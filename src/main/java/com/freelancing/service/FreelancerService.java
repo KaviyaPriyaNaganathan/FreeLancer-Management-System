@@ -17,6 +17,7 @@ public interface FreelancerService {
 
 	FreelancerResponseDTO getFreenlancerById(Long freelancerId);
 
-	//FreelancerResponseDTO getFreelancerBySkills(String skills);
+	List<FreelancerResponseDTO> getFreelancerBySkills(String skills);
+
 
 }

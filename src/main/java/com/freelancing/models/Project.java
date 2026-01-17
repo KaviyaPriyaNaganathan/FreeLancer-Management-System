@@ -39,7 +39,7 @@ public class Project {
 	private LocalDate deadline;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, length =40)
 	private ProjectStatus status = ProjectStatus.NEW;
 	
 	@ManyToOne

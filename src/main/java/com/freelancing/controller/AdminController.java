@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.freelancing.dto.request.ManagerRequestDTO;
 import com.freelancing.dto.request.ProjectRequestDTO;
+import com.freelancing.dto.request.ProjectUpdateStatusRequestDTO;
 import com.freelancing.dto.response.FreelancerResponseDTO;
 import com.freelancing.dto.response.ManagerResponseDTO;
 import com.freelancing.dto.response.ProjectResponseDTO;
@@ -85,13 +87,13 @@ public class AdminController {
     	return freelancerService.getFreenlancerById(freelancerId);
     }
     
-//    @GetMapping("/freelancer/{skills}")
-//    public FreelancerResponseDTO getFreelancerBySkills(@PathVariable String skills)
-//    {
-//    	return freelancerService.getFreelancerBySkills(skills);
-//    }
-//    
     
+    @GetMapping("/freelancer/search-by-skills")
+    public List<FreelancerResponseDTO> getFreelancerBySkills(@RequestParam String skills)
+    {
+    	return freelancerService.getFreelancerBySkills(skills);
+    }
+     
     
     
     @PostMapping("/project")
@@ -106,11 +108,36 @@ public class AdminController {
         return ResponseEntity.ok(projectService.assignManagerToProject(projectId, managerId));
     }
 
+    @GetMapping("/project/{projectId}")
+    public ProjectResponseDTO getProjectById(@PathVariable Long projectId)
+    {
+    	return projectService.getProjectById(projectId);
+    }
+    
+
+    
     @GetMapping("/projects")
     public List<ProjectResponseDTO> getAllProjects() {
         return projectService.getAllProjects();
     }
+    
+    @GetMapping("/project/manager/{managerId}")
+    public List<ProjectResponseDTO> getProjectByManager(@PathVariable Long managerId)
+    {
+    	return projectService.getProjectByManager(managerId);
+    }
 
+    @PutMapping("/project/{projectId}/status")
+    public ResponseEntity<ProjectResponseDTO> updateProjectByStatus(@RequestBody ProjectUpdateStatusRequestDTO dto, @PathVariable Long projectId)
+    {
+    	return ResponseEntity.ok(projectService.updateProjectByStatus(projectId, dto.getStatus()));
+    }
+    
+    @PutMapping("/project/update-project/{projectId}")
+     public ResponseEntity<ProjectResponseDTO> updateProjectDetails(@PathVariable Long projectId,@RequestBody ProjectRequestDTO dto )
+     {
+    	return ResponseEntity.ok(projectService.updateProjectDetails(projectId, dto));
+     }
     
     
 }

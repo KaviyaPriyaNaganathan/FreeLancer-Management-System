@@ -127,6 +127,9 @@ public class Freelancer {
 		this.password = password;
 	}
 
+
+
+
 	public String getSkills() {
 		return skills;
 	}
