@@ -1,6 +1,8 @@
 package com.freelancing.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,6 +76,12 @@ public class ManagerController {
 			@PathVariable Long applicationId)
 	{
 		return applicationService.updateApplicationStatus(applicationId, status);
+	}
+	
+	@GetMapping("/applications/{jobId}")
+	public List<ApplicationResponseDTO> getAllApplicationsByJobId(@PathVariable Long jobId)
+	{
+		return applicationService.getAllApplicationsByJobId(jobId);
 	}
 	
 	

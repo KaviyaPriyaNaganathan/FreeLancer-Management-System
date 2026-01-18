@@ -17,9 +17,7 @@ public interface ApplicationService {
 
 	ApplicationResponseDTO updateApplicationStatus(ApplicationStatus status, Long applicationId);
 
-
-
-	//List<ApplicationResponseDTO> getApplicationsByJob(Long jobId);
+	List<ApplicationResponseDTO> getAllApplicationsByJobId(Long jobId);
 
 	
 

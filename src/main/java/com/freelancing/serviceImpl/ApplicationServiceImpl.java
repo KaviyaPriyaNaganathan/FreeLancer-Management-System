@@ -93,6 +93,22 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return ApplicationMapper.toResponse(savedApplication);
 	}
 
+	@Override
+	public List<ApplicationResponseDTO> getAllApplicationsByJobId(Long jobId) {
+		// TODO Auto-generated method stub
+		
+		JobPost job = jobPostRepository.findById(jobId)
+				.orElseThrow(() -> new RuntimeException("Job not found with id: " + jobId));
+		
+		List<Application> applications = applicationRepository.findByJob_JobId(jobId);
+		
+		if(applications.isEmpty()) 
+				 throw new RuntimeException("No applications found for this job id "+jobId);
+
+		return applications.stream().map(ApplicationMapper::toResponse).toList();
+
+	}
+
 	
 
 }

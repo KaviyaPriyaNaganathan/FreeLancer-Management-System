@@ -1,5 +1,6 @@
 package com.freelancing.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +14,7 @@ public interface ApplicationRepository extends JpaRepository<Application,Long>{
 	boolean existsByJobAndFreelancer(JobPost job, Freelancer freelancer);
 
 	Optional<JobPost> findByJob(JobPost job);
+
+	List<Application> findByJob_JobId(Long jobId);
 
 }
