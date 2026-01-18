@@ -103,6 +103,14 @@ public class JobPostServiceImpl implements JobPostService{
 		return jobs.stream().map(JobPostMapper::toResponse).toList();
 	}
 
+	@Override
+	public List<JobResponseDTO> getAllJobs() {
+		// TODO Auto-generated method stub
+		List<JobPost> allJobs = jobPostRepository.findAll();
+		
+		return allJobs.stream().map(JobPostMapper::toResponse).toList();
+	}
+
 
 	
 	}

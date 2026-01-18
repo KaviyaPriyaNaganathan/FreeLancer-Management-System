@@ -38,6 +38,12 @@ private JobPostService jobService;
 	    
 		return jobService.searchJobs(title, requiredSkills, minBudget, maxBudget);
 	}
+	
+	@GetMapping
+	public List<JobResponseDTO> getAllJobs()
+	{
+		return jobService.getAllJobs();
+	}
 
 	
 	

@@ -1,12 +1,25 @@
 package com.freelancing.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import com.freelancing.repository.ApplicationRepository;
+import com.freelancing.dto.request.ApplicationRequestDTO;
+import com.freelancing.dto.response.ApplicationResponseDTO;
+import com.freelancing.enums.ApplicationStatus;
 
 
 public interface ApplicationService {
+
+	ApplicationResponseDTO applyForJob(ApplicationRequestDTO request);
+
+	ApplicationResponseDTO updateApplicationStatus(Long applicationId, ApplicationStatus status);
+
+	ApplicationResponseDTO getApplicationById(Long applicationId);
+
+	ApplicationResponseDTO updateApplicationStatus(ApplicationStatus status, Long applicationId);
+
+
+
+	//List<ApplicationResponseDTO> getApplicationsByJob(Long jobId);
 
 	
 

@@ -19,81 +19,77 @@ import jakarta.persistence.Table;
 @Table(name = "applications")
 public class Application {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long applicationId;
-	
-	@ManyToOne
-	@JoinColumn(name ="job_id", nullable = false)
-	private JobPost job;
-	
-	@ManyToOne
-	@JoinColumn(name ="freelancer_id", nullable = false)
-	private Freelancer freelancer;
-	
-	@Column(nullable = false)
-	private LocalDateTime applicationDate;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private ApplicationStatus status = ApplicationStatus.APPLIED;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long applicationId;
 
-	public Application(Long applicationId, JobPost job, Freelancer freelancer, LocalDateTime applicationDate,
-			ApplicationStatus status) {
-		super();
-		this.applicationId = applicationId;
-		this.job = job;
-		this.freelancer = freelancer;
-		this.applicationDate = LocalDateTime.now();
-		this.status = ApplicationStatus.APPLIED;
+    @ManyToOne
+    @JoinColumn(name = "job_id", nullable = false)
+    private JobPost job;
+
+    @ManyToOne
+    @JoinColumn(name = "freelancer_id", nullable = false)
+    private Freelancer freelancer;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Application() {
-		super();
-		this.status = ApplicationStatus.APPLIED;
-		this.applicationDate = LocalDateTime.now();
-	}
+	private LocalDateTime reviewedAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ApplicationStatus status = ApplicationStatus.APPLIED;
+
+    public Application() {
+        this.createdAt = LocalDateTime.now();
+        this.status = ApplicationStatus.APPLIED;
+    }
+    
+  
 
 	public Long getApplicationId() {
-		return applicationId;
+        return applicationId;
+    }
+
+    public JobPost getJob() {
+        return job;
+    }
+
+    public void setJob(JobPost job) {
+        this.job = job;
+    }
+
+    public Freelancer getFreelancer() {
+        return freelancer;
+    }
+
+    public void setFreelancer(Freelancer freelancer) {
+        this.freelancer = freelancer;
+    }
+
+    public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setApplicationId(Long applicationId) {
-		this.applicationId = applicationId;
-	}
 
-	public JobPost getJob() {
-		return job;
-	}
+	public LocalDateTime getReviewedAt() {
+        return reviewedAt;
+    }
 
-	public void setJobId(JobPost job) {
-		this.job = job;
-	}
+    public void setReviewedAt(LocalDateTime reviewedAt) {
+        this.reviewedAt = reviewedAt;
+    }
 
-	public Freelancer getFreelancerId() {
-		return freelancer;
-	}
+    public ApplicationStatus getStatus() {
+        return status;
+    }
 
-	public void setFreelancer(Freelancer freelancer) {
-		this.freelancer= freelancer;
-	}
-
-	public LocalDateTime getApplicationDate() {
-		return applicationDate;
-	}
-
-	public void setApplicationDate(LocalDateTime applicationDate) {
-		this.applicationDate = applicationDate;
-	}
-
-	public ApplicationStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(ApplicationStatus status) {
-		this.status = status;
-	}
-	
-	
-	
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
+    }
 }

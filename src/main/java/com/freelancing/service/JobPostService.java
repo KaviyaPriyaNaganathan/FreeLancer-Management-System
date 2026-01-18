@@ -21,6 +21,8 @@ public interface JobPostService {
 
 	List<JobResponseDTO> searchJobs(String title, String skills, BigDecimal minBudget, BigDecimal maxBudget);
 
+	List<JobResponseDTO> getAllJobs();
+
 
 	
 	
