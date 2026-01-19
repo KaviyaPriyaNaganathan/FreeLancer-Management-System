@@ -44,6 +44,17 @@ public class Review {
 	
 	@Column(nullable = false)
     private LocalDateTime reviewedDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "job_id", nullable = false)
+	private JobPost job;
+
+
+
+	public Review(JobPost job) {
+		super();
+		this.job = job;
+	}
 
 
 	public Review(Long reviewId, Project project, Freelancer freelancer, int rating, String comments,
@@ -56,6 +67,16 @@ public class Review {
 		this.comments = comments;
 		this.reviewedBy = reviewedBy;
 		this.reviewedDate = LocalDateTime.now();
+	}
+
+
+	public JobPost getJob() {
+		return job;
+	}
+
+
+	public void setJob(JobPost job) {
+		this.job = job;
 	}
 
 

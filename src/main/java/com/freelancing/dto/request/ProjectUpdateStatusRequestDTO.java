@@ -2,7 +2,11 @@ package com.freelancing.dto.request;
 
 import com.freelancing.enums.ProjectStatus;
 
+import jakarta.validation.constraints.NotNull;
+
 public class ProjectUpdateStatusRequestDTO {
+    
+	@NotNull(message = "Project status is required")
 	private ProjectStatus status;
 
 	public ProjectUpdateStatusRequestDTO(ProjectStatus status) {

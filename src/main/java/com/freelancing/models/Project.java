@@ -2,6 +2,7 @@ package com.freelancing.models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.freelancing.enums.ProjectStatus;
@@ -14,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -51,6 +53,7 @@ public class Project {
 	
 	@Column(nullable = false)
 	private double budget;
+	 
 
 
 	public Project(Long projectId, String title, String description, LocalDateTime createdDate, LocalDate deadline,

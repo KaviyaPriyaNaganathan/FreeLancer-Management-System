@@ -2,13 +2,29 @@ package com.freelancing.dto.request;
 
 import java.time.LocalDate;
 
-public class ProjectRequestDTO {
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
+public class ProjectRequestDTO {
+	
+    @NotBlank(message = "Project title is required")
 	private String title;
+    
+    @NotBlank(message = "Project description is required")
 	private String description;
+    
+    @NotNull(message = "Project deadline is required")
+    @Future(message = "Project deadline must be in the future")
 	private LocalDate deadline;
-	private double budget;
-	private Long managerId;
+	
+    @Positive(message = "Budget must be greater than 0")
+    private double budget;
+	
+    @NotNull(message = "Manager ID is required")
+    @Positive(message = "Manager ID must be positive")
+    private Long managerId;
 	public String getTitle() {
 		return title;
 	}

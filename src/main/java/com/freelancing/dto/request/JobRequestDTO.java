@@ -4,18 +4,34 @@ import java.math.BigDecimal;
 
 import com.freelancing.enums.PostedBy;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 
 public class JobRequestDTO {
 
+    @NotBlank(message = "Job title is required")
 	private String title;
 	
+    
+    @NotBlank(message = "Job description is required")
     private String description;
     
+    
+    @NotBlank(message = "Required skills are required")
     private String requiredSkills; 
     
+    @NotNull(message = "PostedBy is required")
     private PostedBy postedBy; 
     
+    @NotNull(message = "Budget is required")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Budget must be greater than 0")
     private BigDecimal budget;
+    
+    @NotNull(message = "Project ID is required")
+    @Positive(message = "Project ID must be positive")
     
     private Long projectId;
     

@@ -18,7 +18,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name ="freelancers")
 public class Freelancer {
@@ -217,7 +225,7 @@ public class Freelancer {
 	public void setLastReviewedDate(LocalDateTime lastReviewedDate) {
 		this.lastReviewedDate = lastReviewedDate;
 	}
-	
+
 	
 	
 }

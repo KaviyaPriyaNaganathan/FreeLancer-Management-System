@@ -1,7 +1,10 @@
 package com.freelancing.service;
 
-import org.springframework.stereotype.Service;
+import com.freelancing.dto.request.LoginRequestDTO;
+import com.freelancing.dto.response.LoginResponseDTO;
 
 public interface AuthService {
+
+	LoginResponseDTO login(LoginRequestDTO dto);
 
 }

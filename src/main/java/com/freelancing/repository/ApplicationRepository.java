@@ -13,8 +13,12 @@ public interface ApplicationRepository extends JpaRepository<Application,Long>{
 
 	boolean existsByJobAndFreelancer(JobPost job, Freelancer freelancer);
 
-	Optional<JobPost> findByJob(JobPost job);
-
 	List<Application> findByJob_JobId(Long jobId);
+
+	Optional<Application> findByJob_JobIdAndFreelancer_FreelancerId(
+		    Long jobId,
+		    Long freelancerId
+		);
+
 
 }

@@ -10,4 +10,6 @@ public interface ProjectRepository extends JpaRepository<Project,Long>{
 
 	List<Project> findByManager_ManagerId(Long managerId);
 
+	List<Project> findByAssignedFreelancers_FreelancerId(Long freelancerId);
+
 }

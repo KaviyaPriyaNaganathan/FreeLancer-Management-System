@@ -34,19 +34,19 @@ public class Meeting {
 	private String agenda;
 	
 	@Column(nullable = false, length= 300)
-	private String progreeNotes;
+	private String progressNotes;
 	
 	@Enumerated(EnumType.STRING)
 	private ConductedBy conductedBy;
 
-	public Meeting(Long meetingId, Project project, LocalDateTime meetingDate, String agenda, String progreeNotes,
+	public Meeting(Long meetingId, Project project, LocalDateTime meetingDate, String agenda, String progressNotes,
 			ConductedBy conductedBy) {
 		super();
 		this.meetingId = meetingId;
 		this.project = project;
 		this.meetingDate = LocalDateTime.now();
 		this.agenda = agenda;
-		this.progreeNotes = progreeNotes;
+		this.progressNotes = progressNotes;
 		this.conductedBy = conductedBy;
 	}
 
@@ -87,12 +87,12 @@ public class Meeting {
 		this.agenda = agenda;
 	}
 
-	public String getProgreeNotes() {
-		return progreeNotes;
+	public String getProgressNotes() {
+		return progressNotes;
 	}
 
-	public void setProgreeNotes(String progreeNotes) {
-		this.progreeNotes = progreeNotes;
+	public void setProgressNotes(String progressNotes) {
+		this.progressNotes = progressNotes;
 	}
 
 	public ConductedBy getConductedBy() {
