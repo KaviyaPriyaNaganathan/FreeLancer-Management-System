@@ -7,9 +7,13 @@ public class ManagerResponseDTO {
 
 	 	private Long managerId;
 	    private String name;
+	    
 	    private String email;
+	    
 	    private String department;
+	    
 	    private Role role;
+	    
 	    private ManagerStatus status;
 		public Long getManagerId() {
 			return managerId;

@@ -3,9 +3,13 @@ package com.freelancing.dto.response;
 public class LoginResponseDTO {
 
 	private Long userId;
+	
     private String name;
+    
     private String email;
+    
     private String role;
+    
 	public Long getUserId() {
 		return userId;
 	}

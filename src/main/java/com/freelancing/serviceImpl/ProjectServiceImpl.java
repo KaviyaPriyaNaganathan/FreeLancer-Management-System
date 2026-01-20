@@ -147,6 +147,20 @@ public class ProjectServiceImpl implements ProjectService{
 		return projects.stream().map(ProjectMapper::toResponse).toList();
 	}
 
+	@Override
+	public ProjectResponseDTO assignBackupManager(Long projectId, Long managerId) {
+		  Project project = projectRepository.findById(projectId)
+		            .orElseThrow(() -> new RuntimeException("Project not found"));
+
+		    Manager backupManager = managerRepository.findById(managerId)
+		            .orElseThrow(() -> new RuntimeException("Manager not found"));
+
+		    project.setBackupManager(backupManager);
+		    projectRepository.save(project);
+
+		    return ProjectMapper.toResponse(project);
+	}
+
 
 
 

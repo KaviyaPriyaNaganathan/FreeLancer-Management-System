@@ -112,7 +112,6 @@ public class MeetingServiceImpl implements MeetingService
 
 		 if (projects.isEmpty())
 		 {
-	          log.warn("No projects assigned to freelancerId: {}", freelancerId);
 		     throw new RuntimeException("No projects assigned to freelancer " + freelancerId);
 		 }
 		 
@@ -122,7 +121,6 @@ public class MeetingServiceImpl implements MeetingService
 
 		 if (meetings.isEmpty())
 		 {
-	           log.warn("No meetings scheduled for freelancerId: {}", freelancerId);
 		      throw new BadRequestException("No meetings scheduled for freelancer " + freelancerId);
 		 }
 		 

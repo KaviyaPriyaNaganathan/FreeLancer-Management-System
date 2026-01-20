@@ -54,13 +54,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         log.info("Attempting to apply for job: {} by freelancer: {}", dto.getJobId(), dto.getFreelancerId());
 
     	JobPost job = jobPostRepository.findById(dto.getJobId())
-				.orElseThrow(() -> {
+				.orElseThrow(() -> 
+				{
                     log.error("Job not found with id: {}", dto.getJobId());
                     return new ResourceNotFoundException("Job not found with id: " + dto.getJobId());
                 });
 		
     	Freelancer freelancer = freelancerRepository.findById(dto.getFreelancerId())
-				.orElseThrow(() -> {
+				.orElseThrow(() -> 
+				{
                     log.error("Freelancer not found with id: {}", dto.getFreelancerId());
                     return new ResourceNotFoundException("Freelancer not found with id: " + dto.getFreelancerId());
                 });

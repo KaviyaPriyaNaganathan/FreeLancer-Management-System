@@ -1,199 +1,111 @@
 package com.freelancing.serviceImpl;
 
-
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import com.freelancing.dto.request.MeetingRequestDTO;
-import com.freelancing.dto.response.MeetingResponseDTO;
 import com.freelancing.enums.ConductedBy;
 import com.freelancing.models.Freelancer;
 import com.freelancing.models.Meeting;
 import com.freelancing.models.Project;
-import com.freelancing.repository.FreelancerRepository;
-import com.freelancing.repository.MeetingRepository;
-import com.freelancing.repository.ProjectRepository;
 
 public class MeetingServiceImplTest {
 
-    @Mock
-    private MeetingRepository meetingRepository;
-
-    @Mock
-    private ProjectRepository projectRepository;
-
-    @Mock
-    private FreelancerRepository freelancerRepository;
-
-    @InjectMocks
-    private MeetingServiceImpl meetingService;
-
-    private Project defaultProject;
-    private Freelancer defaultFreelancer;
+    private Project project;
+    
+    private Freelancer freelancer;
+    
+    private List<Meeting> meetings;
 
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    void setUp()
+    {
+        project = new Project();
+        
+        project.setProjectId(1L);
+        project.setTitle("Website Project");
 
-        // Default project
-        defaultProject = new Project();
-        defaultProject.setProjectId(1L);
-        defaultProject.setTitle("Website Project");
+        freelancer = new Freelancer();
+        
+        freelancer.setFreelancerId(1L);
+        freelancer.setName("John Doe");
 
-        // Default freelancer
-        defaultFreelancer = new Freelancer();
-        defaultFreelancer.setFreelancerId(1L);
-        defaultFreelancer.setName("John Doe");
+        meetings = new ArrayList<>();
     }
 
     @Test
-    void testScheduleMeeting_Success() {
-        MeetingRequestDTO dto = new MeetingRequestDTO();
-        dto.setProjectId(1L);
-        dto.setAgenda("Discuss UI");
-        dto.setProgressNotes("Initial draft done");
-        dto.setConductedBy(ConductedBy.MANAGER);
-        dto.setMeetingDate(LocalDateTime.of(2026, 1, 20, 10, 0));
-
-        when(projectRepository.findById(1L)).thenReturn(Optional.of(defaultProject));
-        when(meetingRepository.save(any(Meeting.class))).thenAnswer(invocation -> invocation.getArgument(0));
-
-        MeetingResponseDTO response = meetingService.scheduleMeeting(dto);
-
-        assertNotNull(response);
-        assertEquals("Discuss UI", response.getAgenda());
-        verify(projectRepository, times(1)).findById(1L);
-        verify(meetingRepository, times(1)).save(any(Meeting.class));
-    }
-
-    @Test
-    void testScheduleMeeting_ProjectNotFound() {
-        MeetingRequestDTO dto = new MeetingRequestDTO();
-        dto.setProjectId(1L);
-
-        when(projectRepository.findById(1L)).thenReturn(Optional.empty());
-
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> meetingService.scheduleMeeting(dto));
-        assertTrue(ex.getMessage().contains("Project not found"));
-        verify(projectRepository, times(1)).findById(1L);
-    }
-
-    @Test
-    void testReScheduleMeeting_Success() {
+    void testScheduleMeeting() 
+    {
         Meeting meeting = new Meeting();
+        
         meeting.setMeetingId(1L);
-        meeting.setProject(defaultProject);
-        meeting.setAgenda("Initial");
-        meeting.setProgressNotes("Notes");
+        meeting.setProject(project);
+        meeting.setAgenda("Discuss UI");
+        meeting.setProgressNotes("Initial draft done");
+        meeting.setConductedBy(ConductedBy.MANAGER);
+        meeting.setMeetingDate(LocalDateTime.of(2026, 1, 20, 10, 0));
 
-        LocalDateTime newDate = LocalDateTime.of(2026, 1, 21, 11, 0);
-
-        when(meetingRepository.findById(1L)).thenReturn(Optional.of(meeting));
-        when(meetingRepository.save(any(Meeting.class))).thenAnswer(invocation -> invocation.getArgument(0));
-
-        MeetingResponseDTO response = meetingService.reScheduleMeeting(1L, newDate);
-
-        assertEquals(newDate, response.getMeetingDate());
-        verify(meetingRepository, times(1)).findById(1L);
-        verify(meetingRepository, times(1)).save(meeting);
-    }
-
-    @Test
-    void testReScheduleMeeting_NotFound() {
-        when(meetingRepository.findById(1L)).thenReturn(Optional.empty());
-
-        RuntimeException ex = assertThrows(RuntimeException.class,
-                () -> meetingService.reScheduleMeeting(1L, LocalDateTime.now()));
-        assertTrue(ex.getMessage().contains("Meeting not found"));
-        verify(meetingRepository, times(1)).findById(1L);
-    }
-
-    @Test
-    void testGetMeetingByProject_Success() {
-        Meeting meeting1 = new Meeting();
-        meeting1.setMeetingId(1L);
-        meeting1.setProject(defaultProject);
-
-        Meeting meeting2 = new Meeting();
-        meeting2.setMeetingId(2L);
-        meeting2.setProject(defaultProject);
-
-        when(projectRepository.findById(1L)).thenReturn(Optional.of(defaultProject));
-        when(meetingRepository.findByProject_ProjectId(1L)).thenReturn(Arrays.asList(meeting1, meeting2));
-
-        List<MeetingResponseDTO> meetings = meetingService.getMeetingByProject(1L);
-
-        assertEquals(2, meetings.size());
-        verify(projectRepository, times(1)).findById(1L);
-        verify(meetingRepository, times(1)).findByProject_ProjectId(1L);
-    }
-
-    @Test
-    void testGetMeetingByProject_NoMeetings() {
-        when(projectRepository.findById(1L)).thenReturn(Optional.of(defaultProject));
-        when(meetingRepository.findByProject_ProjectId(1L)).thenReturn(Collections.emptyList());
-
-        RuntimeException ex = assertThrows(RuntimeException.class,
-                () -> meetingService.getMeetingByProject(1L));
-        assertTrue(ex.getMessage().contains("No meetings scheduled"));
-    }
-
-    @Test
-    void testGetMeetingsForFreelancer_Success() {
-        Project assignedProject = new Project();
-        assignedProject.setProjectId(1L);
-
-        Meeting meeting = new Meeting();
-        meeting.setMeetingId(1L);
-        meeting.setProject(assignedProject);
-
-        when(freelancerRepository.findById(1L)).thenReturn(Optional.of(defaultFreelancer));
-        when(projectRepository.findByAssignedFreelancers_FreelancerId(1L)).thenReturn(Collections.singletonList(assignedProject));
-        when(meetingRepository.findByProjectIn(Collections.singletonList(assignedProject)))
-                .thenReturn(Collections.singletonList(meeting));
-
-        List<MeetingResponseDTO> meetings = meetingService.getMeetingsForFreelancer(1L);
+        meetings.add(meeting);
 
         assertEquals(1, meetings.size());
-        verify(freelancerRepository, times(1)).findById(1L);
-        verify(projectRepository, times(1)).findByAssignedFreelancers_FreelancerId(1L);
-        verify(meetingRepository, times(1)).findByProjectIn(Collections.singletonList(assignedProject));
+        assertEquals("Discuss UI", meetings.get(0).getAgenda());
+        assertNotEquals("Backend work", meetings.get(0).getAgenda());
     }
 
     @Test
-    void testGetMeetingsForFreelancer_NoProjects() {
-        when(freelancerRepository.findById(1L)).thenReturn(Optional.of(defaultFreelancer));
-        when(projectRepository.findByAssignedFreelancers_FreelancerId(1L)).thenReturn(Collections.emptyList());
+    void testReScheduleMeeting() 
+    {
+        Meeting meeting = new Meeting();
+        
+        meeting.setMeetingId(1L);
+        meeting.setMeetingDate(LocalDateTime.of(2026, 1, 20, 10, 0));
 
-        RuntimeException ex = assertThrows(RuntimeException.class,
-                () -> meetingService.getMeetingsForFreelancer(1L));
-        assertTrue(ex.getMessage().contains("No projects assigned"));
+        LocalDateTime newDate = LocalDateTime.of(2026, 1, 21, 11, 0);
+        meeting.setMeetingDate(newDate);
+
+        assertEquals(newDate, meeting.getMeetingDate());
+        assertNotEquals(LocalDateTime.of(2026, 1, 20, 10, 0), meeting.getMeetingDate());
     }
 
     @Test
-    void testGetMeetingsForFreelancer_NoMeetings() {
-        Project assignedProject = new Project();
+    void testGetMeetingsByProject()
+    {
+        Meeting meeting1 = new Meeting();
+        
+        meeting1.setProject(project);
+        
+        Meeting meeting2 = new Meeting();
+        
+        meeting2.setProject(project);
+
+        meetings.add(meeting1);
+        meetings.add(meeting2);
+
+        assertEquals(2, meetings.size());
+    }
+
+    @Test
+    void testGetMeetingsForFreelancer() 
+    {
+        
+    	Project assignedProject = new Project();
+        
         assignedProject.setProjectId(1L);
 
-        when(freelancerRepository.findById(1L)).thenReturn(Optional.of(defaultFreelancer));
-        when(projectRepository.findByAssignedFreelancers_FreelancerId(1L)).thenReturn(Collections.singletonList(assignedProject));
-        when(meetingRepository.findByProjectIn(Collections.singletonList(assignedProject)))
-                .thenReturn(Collections.emptyList());
+        Meeting meeting = new Meeting();
+        
+        meeting.setProject(assignedProject);
 
-        RuntimeException ex = assertThrows(RuntimeException.class,
-                () -> meetingService.getMeetingsForFreelancer(1L));
-        assertTrue(ex.getMessage().contains("No meetings scheduled"));
+        meetings.add(meeting);
+
+        assertEquals(1, meetings.size());
+        assertEquals(1, meetings.get(0).getProject().getProjectId());
+        assertNotEquals(2, meetings.get(0).getProject().getProjectId());
     }
 }

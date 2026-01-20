@@ -12,5 +12,7 @@ import com.freelancing.models.Project;
 
 
 public interface AdminService {
+
+	ProjectResponseDTO assignBackupManagerToProject(Long projectId, Long managerId);
 	
 }

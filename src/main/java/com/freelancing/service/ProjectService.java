@@ -28,6 +28,8 @@ public interface ProjectService {
 
 	List<ProjectResponseDTO> getProjectByManager(Long managerId);
 
+	ProjectResponseDTO assignBackupManager(Long projectId, Long managerId);
+
 
 	
 }

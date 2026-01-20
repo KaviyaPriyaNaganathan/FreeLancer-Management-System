@@ -9,28 +9,39 @@ import com.freelancing.enums.ProjectStatus;
 public class ProjectResponseDTO {
 
 	private Long projectId;
+	
 	private String title;
+	
 	private String description;
+	
 	private LocalDateTime createdDate;
+	
 	private LocalDate deadline;
+	
 	private ProjectStatus status;
 	private double budget;
 	
 	
 	private Long managerId;
 	private String managerName;
+	
 	private String managerEmail;
+	
 	private String managerDepartment;
 	
-	public double getBudget() {
-		return budget;
-	}
-	public void setBudget(double budget) {
-		this.budget = budget;
-	}
+	
+	private Long backupManagerId;
+	
+	private String backupManagerName;
+	private String backupManagerEmail;
+	
+	
+	
+	
 	public ProjectResponseDTO(Long projectId, String title, String description, LocalDateTime createdDate,
 			LocalDate deadline, ProjectStatus status, double budget, Long managerId, String managerName,
-			String managerEmail, String managerDepartment) {
+			String managerEmail, String managerDepartment, Long backupManagerId, String backupManagerName,
+			String backupManagerEmail) {
 		super();
 		this.projectId = projectId;
 		this.title = title;
@@ -43,7 +54,35 @@ public class ProjectResponseDTO {
 		this.managerName = managerName;
 		this.managerEmail = managerEmail;
 		this.managerDepartment = managerDepartment;
+		this.backupManagerId = backupManagerId;
+		this.backupManagerName = backupManagerName;
+		this.backupManagerEmail = backupManagerEmail;
 	}
+	public Long getBackupManagerId() {
+		return backupManagerId;
+	}
+	public void setBackupManagerId(Long backupManagerId) {
+		this.backupManagerId = backupManagerId;
+	}
+	public String getBackupManagerName() {
+		return backupManagerName;
+	}
+	public void setBackupManagerName(String backupManagerName) {
+		this.backupManagerName = backupManagerName;
+	}
+	public String getBackupManagerEmail() {
+		return backupManagerEmail;
+	}
+	public void setBackupManagerEmail(String backupManagerEmail) {
+		this.backupManagerEmail = backupManagerEmail;
+	}
+	public double getBudget() {
+		return budget;
+	}
+	public void setBudget(double budget) {
+		this.budget = budget;
+	}
+
 	public ProjectResponseDTO() {
 		super();
 		// TODO Auto-generated constructor stub

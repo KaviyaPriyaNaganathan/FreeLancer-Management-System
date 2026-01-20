@@ -1,13 +1,9 @@
 package com.freelancing.mappers;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.freelancing.dto.request.ProjectRequestDTO;
 import com.freelancing.dto.response.ProjectResponseDTO;
-import com.freelancing.enums.ProjectStatus;
 import com.freelancing.models.Manager;
 import com.freelancing.models.Project;
 import com.freelancing.repository.ManagerRepository;
@@ -34,22 +30,35 @@ public class ProjectMapper {
 		return project;
 	}
 	
-	public static ProjectResponseDTO toResponse(Project dto)
-	{
-		ProjectResponseDTO response = new ProjectResponseDTO();
-		response.setProjectId(dto.getProjectId());
-		response.setTitle(dto.getTitle());
-		response.setDescription(dto.getDescription());
-		response.setCreatedDate(dto.getCreatedDate());
-		response.setDeadline(dto.getDeadline());
-		response.setStatus(dto.getStatus());
-		response.setBudget(dto.getBudget());
-		response.setManagerId(dto.getManager().getManagerId());
-		response.setManagerName(dto.getManager().getName());
-		response.setManagerEmail(dto.getManager().getEmail());
-		response.setManagerDepartment(dto.getManager().getDepartment());
-		return response;
+	public static ProjectResponseDTO toResponse(Project project) {
+	    ProjectResponseDTO response = new ProjectResponseDTO();
+
+	    // Basic project details
+	    response.setProjectId(project.getProjectId());
+	    response.setTitle(project.getTitle());
+	    response.setDescription(project.getDescription());
+	    response.setCreatedDate(project.getCreatedDate());
+	    response.setDeadline(project.getDeadline());
+	    response.setStatus(project.getStatus());
+	    response.setBudget(project.getBudget());
+
+	    if (project.getManager() != null) {
+	        response.setManagerId(project.getManager().getManagerId());
+	        response.setManagerName(project.getManager().getName());
+	        response.setManagerEmail(project.getManager().getEmail());
+	        response.setManagerDepartment(project.getManager().getDepartment());
+	    }
+
+	    // Backup manager details (only if assigned)
+	    if (project.getBackupManager() != null) {
+	        response.setBackupManagerId(project.getBackupManager().getManagerId());
+	        response.setBackupManagerName(project.getBackupManager().getName());
+	        response.setBackupManagerEmail(project.getBackupManager().getEmail());
+	    }
+
+	    return response;
 	}
+
 	
 	
 }

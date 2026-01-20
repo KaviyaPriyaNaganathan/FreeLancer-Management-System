@@ -30,22 +30,27 @@ public class JobController {
 	}
 
 	@GetMapping("/open-jobs")
-	public List<JobResponseDTO> getAllOpenJobs() {
+	public List<JobResponseDTO> getAllOpenJobs() 
+	{
 		return jobService.getAllOpenJobs();
 	}
+	
 
 	@GetMapping("/search")
-	public List<JobResponseDTO> searchJobs(
-			@RequestParam(required = false) @Size(min = 2, message = "Title must have at least 2 characters") String title,
+	public List<JobResponseDTO> searchJobs(@RequestParam(required = false) @Size(min = 2, message = "Title must have at least 2 characters") String title,
 			@RequestParam(required = false) @Size(min = 2, message = "Skills must have at least 2 characters") String requiredSkills,
 			@RequestParam(required = false) @DecimalMin(value = "0.0", inclusive = true, message = "Min budget must be positive") BigDecimal minBudget,
-			@RequestParam(required = false) @DecimalMin(value = "0.0", inclusive = true, message = "Max budget must be positive") BigDecimal maxBudget) {
+			@RequestParam(required = false) @DecimalMin(value = "0.0", inclusive = true, message = "Max budget must be positive") BigDecimal maxBudget)
+	{
 
 		return jobService.searchJobs(title, requiredSkills, minBudget, maxBudget);
 	}
 
+	
+	
 	@GetMapping
-	public List<JobResponseDTO> getAllJobs() {
+	public List<JobResponseDTO> getAllJobs()
+	{
 		return jobService.getAllJobs();
 	}
 

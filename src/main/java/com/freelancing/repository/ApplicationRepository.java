@@ -15,10 +15,7 @@ public interface ApplicationRepository extends JpaRepository<Application,Long>{
 
 	List<Application> findByJob_JobId(Long jobId);
 
-	Optional<Application> findByJob_JobIdAndFreelancer_FreelancerId(
-		    Long jobId,
-		    Long freelancerId
-		);
+	Optional<Application> findByJob_JobIdAndFreelancer_FreelancerId(Long jobId,Long freelancerId);
 
 
 }

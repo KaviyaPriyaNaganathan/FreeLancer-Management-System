@@ -48,6 +48,37 @@ public class Project {
 	@JoinColumn(name = "manager_id", nullable = false)
 	private Manager manager;
 	
+	@ManyToOne
+    @JoinColumn(name = "backup_manager_id")
+    private Manager backupManager;
+
+    public Manager getBackupManager() {
+		return backupManager;
+	}
+
+	public void setBackupManager(Manager backupManager) {
+		this.backupManager = backupManager;
+	}
+
+	public LocalDate getManagerUnavailableFrom() {
+		return managerUnavailableFrom;
+	}
+
+	public void setManagerUnavailableFrom(LocalDate managerUnavailableFrom) {
+		this.managerUnavailableFrom = managerUnavailableFrom;
+	}
+
+	public LocalDate getManagerUnavailableTo() {
+		return managerUnavailableTo;
+	}
+
+	public void setManagerUnavailableTo(LocalDate managerUnavailableTo) {
+		this.managerUnavailableTo = managerUnavailableTo;
+	}
+
+	private LocalDate managerUnavailableFrom;
+    private LocalDate managerUnavailableTo;
+	
 	@ManyToMany(mappedBy = "appliedProjects")
 	private List<Freelancer> assignedFreelancers;
 	

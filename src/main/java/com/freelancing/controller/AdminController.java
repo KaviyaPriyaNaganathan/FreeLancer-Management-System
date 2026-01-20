@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,9 +41,13 @@ public class AdminController {
 	
 	
     private AdminService adminService;
+    
 	private ProjectService projectService;
+	
 	private ManagerService managerService;
+	
 	private FreelancerService freelancerService;
+	
 	private MeetingService meetingService;
 	
 	
@@ -60,6 +65,7 @@ public class AdminController {
 
 	
 	@PostMapping("/addManager")
+	@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ManagerResponseDTO> addManager(@Valid @RequestBody ManagerRequestDTO dto) {
         return ResponseEntity.ok(managerService.addManager(dto));
     }
@@ -67,12 +73,14 @@ public class AdminController {
 
 
 	@PutMapping("/manager/{managerId}/deactivate")
+	@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ManagerResponseDTO> deactivateManager(@Valid @PathVariable Long managerId)
     {
     	return ResponseEntity.ok(managerService.deactivateManager(managerId));
     }
 
     @GetMapping("/managers")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<ManagerResponseDTO> getAllManagers()
     {
     	return managerService.getAllManagers();
@@ -82,18 +90,22 @@ public class AdminController {
     
     
     @GetMapping("/freelancers")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<FreelancerResponseDTO> getAllFreelancers()
     {
     	return freelancerService.getAllFreelancers();
     }
     
     @PutMapping("/freelancer/{freelancerId}/deactivate")
+    @PreAuthorize("hasRole('ADMIN')")
+    
     public ResponseEntity<FreelancerResponseDTO> deactivateFreelancer(@Valid @PathVariable Long freelancerId)
     {
     	return ResponseEntity.ok(freelancerService.deactivateFreelancer(freelancerId));
     }
     
     @GetMapping("/freelancer/{freelancerId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public FreelancerResponseDTO getFreenlancerById(@PathVariable Long freelancerId)
     {
     	return freelancerService.getFreenlancerById(freelancerId);
@@ -101,6 +113,7 @@ public class AdminController {
     
     
     @GetMapping("/freelancer/search-by-skills")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<FreelancerResponseDTO> getFreelancerBySkills(@RequestParam String skills)
     {
     	return freelancerService.getFreelancerBySkills(skills);
@@ -109,11 +122,13 @@ public class AdminController {
     
     
     @PostMapping("/project")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProjectResponseDTO> createProject(@Valid @RequestBody ProjectRequestDTO dto) {
         return ResponseEntity.ok(projectService.createProject(dto));
     }
 
     @PutMapping("/projects/{projectId}/assign-manager/{managerId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProjectResponseDTO> assignManagerToProject(
     		@Valid @PathVariable Long projectId,
             @PathVariable Long managerId) {
@@ -121,6 +136,7 @@ public class AdminController {
     }
 
     @GetMapping("/project/{projectId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ProjectResponseDTO getProjectById(@Valid @PathVariable Long projectId)
     {
     	return projectService.getProjectById(projectId);
@@ -129,23 +145,27 @@ public class AdminController {
 
     
     @GetMapping("/projects")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<ProjectResponseDTO> getAllProjects() {
         return projectService.getAllProjects();
     }
     
     @GetMapping("/project/manager/{managerId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<ProjectResponseDTO> getProjectByManager(@Valid @PathVariable Long managerId)
     {
     	return projectService.getProjectByManager(managerId);
     }
 
     @PutMapping("/project/{projectId}/status")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProjectResponseDTO> updateProjectByStatus(@Valid @RequestBody ProjectUpdateStatusRequestDTO dto, @PathVariable Long projectId)
     {
     	return ResponseEntity.ok(projectService.updateProjectByStatus(projectId, dto.getStatus()));
     }
     
     @PutMapping("/project/update-project/{projectId}")
+    @PreAuthorize("hasRole('ADMIN')")
      public ResponseEntity<ProjectResponseDTO> updateProjectDetails(@Valid @PathVariable Long projectId,@RequestBody ProjectRequestDTO dto )
      {
     	return ResponseEntity.ok(projectService.updateProjectDetails(projectId, dto));
@@ -156,17 +176,31 @@ public class AdminController {
     
     
     @PostMapping("/meeting/schedule-meeting")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MeetingResponseDTO> scheduleMeeting(@Valid @RequestBody MeetingRequestDTO dto)
     {
     	return ResponseEntity.ok(meetingService.scheduleMeeting(dto));
     }
     
     @PutMapping("/meeting/{meetingId}/reschedule-meeting/meetingDate")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MeetingResponseDTO> reScheduleMeeting(@PathVariable Long meetingId,
             @RequestParam @NotNull(message = "Meeting date is required") LocalDateTime meetingDate) 
     {
     	return  ResponseEntity.ok(meetingService.reScheduleMeeting(meetingId,meetingDate));
    
     }
+    
+    @PutMapping("/project/{projectId}/assign-backup-manager/{managerId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ProjectResponseDTO> assignBackupManager(
+            @PathVariable Long projectId,
+            @PathVariable Long managerId) {
+
+        ProjectResponseDTO updatedProject = projectService.assignBackupManager(projectId, managerId);
+        return ResponseEntity.ok(updatedProject);
+    }
+
+    
     
 }

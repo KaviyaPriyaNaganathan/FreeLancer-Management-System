@@ -5,12 +5,19 @@ import com.freelancing.enums.FreelancerStatus;
 public class FreelancerResponseDTO {
 
 		private Long freelancerId;
+		
 		private String name;
+		
 	    private String email;
+	    
 	    private String skills;
+	    
 		private double experienceYears;
+		
 	    private double rating;
+	    
 	    private FreelancerStatus status;
+	    
 		public String getName() {
 			return name;
 		}

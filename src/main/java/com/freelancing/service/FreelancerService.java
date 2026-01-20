@@ -3,9 +3,8 @@ package com.freelancing.service;
 import java.util.List;
 
 import com.freelancing.dto.request.FreelancerSignupDTO;
-import com.freelancing.dto.request.ProjectRequestDTO;
 import com.freelancing.dto.response.FreelancerResponseDTO;
-import com.freelancing.models.Freelancer;
+import com.freelancing.dto.response.PrioritizedFreelancerDTO;
 
 public interface FreelancerService {
 
@@ -18,6 +17,10 @@ public interface FreelancerService {
 	FreelancerResponseDTO getFreenlancerById(Long freelancerId);
 
 	List<FreelancerResponseDTO> getFreelancerBySkills(String skills);
+
+	FreelancerResponseDTO getFreelancerByEmail(String email);
+
+	List<PrioritizedFreelancerDTO> getPrioritizedFreelancers();
 
 
 }
